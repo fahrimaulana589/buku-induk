@@ -54,6 +54,11 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ])->plugin(FilamentAccessControlPlugin::make());
+            ])->plugin(FilamentAccessControlPlugin::make())
+            ->navigationGroups([
+                'Master Akademik',
+                'Master Siswa',
+                'Administration',
+            ]);
     }
 }
