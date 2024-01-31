@@ -23,9 +23,9 @@ class GuardianResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    protected static ?string $pluralLabel = "Data Walimurid";
+    protected static ?string $pluralLabel = "Data Wali murid";
 
-    protected static ?string $label = "Data Walimurid";
+    protected static ?string $label = "Data Wali murid";
     protected static ?string $navigationGroup = "Master Siswa";
 
     protected static ?int $navigationSort = 4;
@@ -38,6 +38,7 @@ class GuardianResource extends Resource
                     Forms\Components\Select::make('student_id')
                         ->label('Murid')
                         ->relationship('student', 'name')
+                        ->unique(ignorable: fn ($record) => $record)
                         ->live()
                         ->afterStateUpdated(function (Forms\Set $set, Forms\Get $get) {
                             $murid = Student::find($get('student_id'));
@@ -191,14 +192,15 @@ class GuardianResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('student.name')
+                    ->label('Murid')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('name')
-                    ->label('Nama'),
+                    ->label('Wali Murid'),
                 Tables\Columns\TextColumn::make('status'),
                 Tables\Columns\TextColumn::make('religion')
                     ->label('Agama'),
                 Tables\Columns\TextColumn::make('phone'),
-                Tables\Columns\TextColumn::make('student.name')
-                ->label('Nama Murid'),
             ])
             ->filters([
                 //

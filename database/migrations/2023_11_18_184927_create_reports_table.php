@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->foreignId('school_year_id');
             $table->foreignId('class_id');
             $table->enum('semester',['ganjil','genap']);
+            $table->enum('status',['lulus','tidak'])->nullable();
 
             $table->timestamps();
         });

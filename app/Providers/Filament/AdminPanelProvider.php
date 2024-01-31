@@ -58,6 +58,7 @@ class AdminPanelProvider extends PanelProvider
             ->navigationGroups([
                 'Master Akademik',
                 'Master Siswa',
+                'Mutasi Data Siswa',
                 'Administration',
             ]);
     }

@@ -109,6 +109,7 @@ class TeacherResource extends Resource
             ->columns([
                 Tables\Columns\ImageColumn::make('photo'),
                 Tables\Columns\TextColumn::make('name')
+                    ->searchable()
                     ->label('Nama'),
                 Tables\Columns\TextColumn::make('status'),
                 Tables\Columns\TextColumn::make('religion')

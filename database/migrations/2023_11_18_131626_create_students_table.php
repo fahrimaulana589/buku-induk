@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreignId('class_id');
             $table->integer('nis');
             $table->string('name');
+            $table->enum('status',['active','dropout','graduate']);
             $table->string('photo');
             $table->string('gender');
             $table->string('birth_place');

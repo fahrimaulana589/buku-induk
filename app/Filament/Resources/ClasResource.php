@@ -81,6 +81,7 @@ class ClasResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->searchable()
                     ->label('Nama Kelas'),
                 Tables\Columns\TextColumn::make('teacher.name')
                     ->label('Nama Wali Kelas'),

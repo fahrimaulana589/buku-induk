@@ -18,6 +18,7 @@ class StudentFactory extends Factory
             'nis' => fake()->randomDigit(),
             'name' => fake()->name,
             'photo' => 'def.jpg',
+            'status' => 'active',
             'gender' => 'laki laki',
             'birth_place' => 'tegal',
             'birth_date' => fake()->date,

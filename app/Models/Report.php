@@ -1,0 +1,31 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Report extends Model
+{
+    public $fillable = [
+        'class_id',
+        'school_year_id',
+        'student_id',
+        'semester',
+        'status',
+    ];
+
+    public function class()
+    {
+        return $this->belongsTo(Clas::class, 'class_id');
+    }
+
+    public function student()
+    {
+        return $this->belongsTo(Student::class, 'student_id');
+    }
+
+    public function schoolYearh()
+    {
+        return $this->belongsTo(SchoolYear::class, 'school_year_id');
+    }
+}

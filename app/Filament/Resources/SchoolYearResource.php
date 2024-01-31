@@ -39,6 +39,14 @@ class SchoolYearResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->searchable()
+                    ->label('Nama'),
+                Tables\Columns\TextColumn::make('lulusan.id')
+                    ->formatStateUsing(fn (string $state): string => count(explode(",",$state)))
+                    ->label('Jumlah Lulusan'),
+                Tables\Columns\TextColumn::make('keluar.id')
+                    ->formatStateUsing(fn (string $state): string => count(explode(",",$state)))
+                    ->label('Jumlah Keluar'),
             ])
             ->filters([
                 //

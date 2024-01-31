@@ -55,6 +55,7 @@ class EvaluasiResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->searchable()
                     ->label('Nama'),
                 Tables\Columns\TextColumn::make('type')
                     ->label('Type'),

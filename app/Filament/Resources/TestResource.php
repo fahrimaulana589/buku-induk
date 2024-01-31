@@ -40,6 +40,7 @@ class TestResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->searchable()
                     ->label('Nama')
             ])
             ->filters([

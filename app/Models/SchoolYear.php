@@ -12,4 +12,14 @@ class SchoolYear extends Model
     protected $fillable = [
         'name',
     ];
+
+    public function lulusan()
+    {
+        return $this->belongsToMany(Student::class,'student_graduetes');
+    }
+
+    public function keluar()
+    {
+        return $this->belongsToMany(Student::class,'student_dropouts');
+    }
 }

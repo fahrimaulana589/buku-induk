@@ -191,7 +191,8 @@ class StudentResource extends Resource
             ->columns([
                 Tables\Columns\ImageColumn::make('photo'),
                 Tables\Columns\TextColumn::make('name')
-                    ->label('Nama'),
+                    ->label('Nama')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('class.name')
                     ->label('Kelas'),
                 Tables\Columns\TextColumn::make('gender'),
@@ -201,7 +202,7 @@ class StudentResource extends Resource
                     ->label('Agama'),
             ])
             ->filters([
-                //
+
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

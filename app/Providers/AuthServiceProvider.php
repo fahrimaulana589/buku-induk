@@ -9,6 +9,7 @@ use App\Models\Father;
 use App\Models\Lesson;
 use App\Models\Mother;
 use App\Models\Note;
+use App\Models\Report;
 use App\Models\SchoolYear;
 use App\Models\Student;
 use App\Models\Teacher;
@@ -19,6 +20,7 @@ use App\Policies\FatherPolicy;
 use App\Policies\LessonPolicy;
 use App\Policies\MotherPolicy;
 use App\Policies\NotePolicy;
+use App\Policies\ReportPolicy;
 use App\Policies\SchoolYearPolicy;
 use App\Policies\StudentPolicy;
 use App\Policies\TeacherPolicy;
@@ -44,6 +46,7 @@ class AuthServiceProvider extends ServiceProvider
         Note::class => NotePolicy::class,
         Test::class => TestPolicy::class,
         Lesson::class => LessonPolicy::class,
+        Report::class => ReportPolicy::class,
     ];
 
     /**

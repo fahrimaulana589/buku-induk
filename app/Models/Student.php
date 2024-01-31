@@ -16,6 +16,7 @@ class Student extends Model
         'nis',
         'name',
         'photo',
+        'status',
         'gender',
         'birth_place',
         'birth_date',
@@ -59,6 +60,21 @@ class Student extends Model
     public function guardian()
     {
         return $this->hasOne(Guardian::class);
+    }
+
+    public function lulus()
+    {
+        return $this->belongsToMany(SchoolYear::class,'student_graduetes');
+    }
+
+    public function keluar()
+    {
+        return $this->belongsToMany(SchoolYear::class,'student_dropouts')->withPivot(['semester','reason']);
+    }
+
+    public function report()
+    {
+        return $this->hasOne(Report::class);
     }
 
 }

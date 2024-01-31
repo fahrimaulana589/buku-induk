@@ -36,7 +36,7 @@ class DatabaseSeeder extends Seeder
             'last_name' => 'admin',
             'email' => 'admin@admin.com',
             'password' => Hash::make('admin'),
-            'remember_token' => Str::random(10),
+            'remember_token' => '111111',
         ]);
 
         DB::table('model_has_roles')->insert([
@@ -48,46 +48,69 @@ class DatabaseSeeder extends Seeder
         Mother::factory(12)->create();
         Father::factory(12)->create();
 
-        Student::factory(1)->create();
-        Guardian::factory(1)->create();
+        Student::factory(1)->create([
+            'mother_id' => 1,
+            'father_id' => 1
+        ]);
+
+        Student::factory(1)->create([
+            'mother_id' => 2,
+            'father_id' => 2
+        ]);
+
+        Student::factory(1)->create([
+            'mother_id' => 2,
+            'father_id' => 2
+        ]);
+
+        Guardian::factory(1)->create([
+            'student_id' => 1
+        ]);
 
         Teacher::factory(5)->create();
+
         Clas::factory(1)->create([
-            'name' => 'Kelas 1'
+            'name' => 'Kelas 1',
+            'teacher_id' => '1'
         ]);
         Clas::factory(1)->create([
-            'name' => 'Kelas 2'
+            'name' => 'Kelas 2',
+            'teacher_id' => '1'
         ]);
         Clas::factory(1)->create([
-            'name' => 'Kelas 3'
+            'name' => 'Kelas 3',
+            'teacher_id' => '1'
         ]);
         Clas::factory(1)->create([
-            'name' => 'Kelas 4'
+            'name' => 'Kelas 4',
+            'teacher_id' => '1'
         ]);
         Clas::factory(1)->create([
-            'name' => 'Kelas 5'
+            'name' => 'Kelas 5',
+            'teacher_id' => '1'
         ]);
         Clas::factory(1)->create([
-            'name' => 'Kelas 6'
+            'name' => 'Kelas 6',
+            'teacher_id' => '1'
         ]);
 
-        Lesson::factory(1)->create([
+        Lesson::factory()->create([
             'name' => 'Matematika'
-        ]);
+        ])->clas()->attach([1 => ['teacher_id' => 1]]);
 
-        Lesson::factory(1)->create([
+        Lesson::factory()->create([
             'name' => 'Indonesia'
-        ]);
+        ])->clas()->attach([1 => ['teacher_id' => 1]]);
 
-        SchoolYear::factory(1)->create([
+        SchoolYear::factory()->create([
             'name' => '2022/2023'
         ]);
 
-        Test::factory(1)->create([
+        Test::factory()->create([
             'name' => 'UN'
         ]);
 
-        Test::factory(1)->create([
+        Test::factory()->create([
             'name' => 'US'
         ]);
 

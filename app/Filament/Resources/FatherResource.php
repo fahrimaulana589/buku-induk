@@ -76,6 +76,7 @@ class FatherResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->searchable()
                     ->label('Nama'),
                 Tables\Columns\TextColumn::make('birth_place')
                     ->label('Tempat Lahir'),

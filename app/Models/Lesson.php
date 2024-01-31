@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Lesson extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'name',
         'type',
@@ -21,6 +22,6 @@ class Lesson extends Model
 
     public function clas()
     {
-        return $this->belongsToMany(Clas::class,'class_lessons','lesson_id','class_id');
+        return $this->belongsToMany(Clas::class,'class_lessons','lesson_id','class_id')->withPivot('teacher_id');
     }
 }
