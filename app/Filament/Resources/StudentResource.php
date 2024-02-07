@@ -21,7 +21,7 @@ class StudentResource extends Resource
 {
     protected static ?string $model = Student::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-user';
 
     protected static ?string $pluralLabel = "Data Murid";
 
@@ -193,8 +193,6 @@ class StudentResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->label('Nama')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('class.name')
-                    ->label('Kelas'),
                 Tables\Columns\TextColumn::make('gender'),
                 Tables\Columns\TextColumn::make('birth_date')
                     ->label('Tanggal Lahir'),

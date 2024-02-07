@@ -25,7 +25,7 @@ class SiswaAktif extends Page implements HasForms,HasTable
     use InteractsWithTable;
     use InteractsWithForms;
 
-    protected static ?string $navigationIcon = 'heroicon-o-document-text';
+    protected static ?string $navigationIcon = 'heroicon-o-check-circle';
 
     protected static string $view = 'filament.pages.siswa-aktif';
     protected static ?string $navigationGroup = 'Mutasi Data Siswa';
@@ -56,6 +56,10 @@ class SiswaAktif extends Page implements HasForms,HasTable
                     ->label('Tanggal Lahir'),
                 TextColumn::make('religion')
                     ->label('Agama'),
+                TextColumn::make('reports.id')
+                    ->formatStateUsing(fn (string $state): string => count(explode(",",$state)))
+                    ->label('Jumlah Semester'),
+
             ])
             ->filters([
                 SelectFilter::make('class')

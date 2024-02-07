@@ -35,7 +35,7 @@ class MutasiKelas extends Page implements HasForms,HasTable
     use InteractsWithTable;
     use InteractsWithForms;
 
-    protected static ?string $navigationIcon = 'heroicon-o-document-text';
+    protected static ?string $navigationIcon = 'heroicon-o-arrows-up-down';
 
     protected static string $view = 'filament.pages.mutasi-kelas';
 

@@ -12,4 +12,9 @@ class Test extends Model
     protected $fillable = [
         'name',
     ];
+
+    public function reports()
+    {
+        return $this->belongsToMany(Report::class,'lesson_values');
+    }
 }

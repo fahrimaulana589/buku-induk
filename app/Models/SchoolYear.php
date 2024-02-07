@@ -22,4 +22,9 @@ class SchoolYear extends Model
     {
         return $this->belongsToMany(Student::class,'student_dropouts');
     }
+
+    public function reports()
+    {
+        return $this->hasMany(Report::class,'school_year_id');
+    }
 }

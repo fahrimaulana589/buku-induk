@@ -5,6 +5,8 @@ namespace App\Filament\Resources\ClasResource\RelationManagers;
 use App\Models\Lesson;
 use App\Models\Teacher;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
@@ -23,6 +25,7 @@ class LessonsRelationManager extends RelationManager
     {
         return $form
             ->schema([
+
             ]);
     }
 
@@ -33,7 +36,10 @@ class LessonsRelationManager extends RelationManager
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->label('Nama'),
-                Tables\Columns\TextColumn::make('clas.name')
+                Tables\Columns\TextColumn::make('clas.teacher_id')
+                    ->formatStateUsing(function (string $state){
+                        return Teacher::find($state)->name;
+                    })
                     ->label('Pengajar'),
             ])
             ->filters([
@@ -47,7 +53,8 @@ class LessonsRelationManager extends RelationManager
                         Forms\Components\Select::make('teacher_id')
                             ->label('Guru')
                             ->options(Teacher::all()->pluck('name', 'id'))
-                    ]),
+                    ])
+                ->preloadRecordSelect(),
             ])
             ->actions([
                 Tables\Actions\DetachAction::make(),

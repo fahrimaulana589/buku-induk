@@ -9,6 +9,8 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Enums\FiltersLayout;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -17,7 +19,7 @@ class ReportResource extends Resource
 {
     protected static ?string $model = Report::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-list';
     protected static ?string $pluralLabel = "Data Report";
 
     protected static ?string $label = "Data Report";
@@ -73,9 +75,19 @@ class ReportResource extends Resource
                     ->label('Status'),
             ])
             ->filters([
-                //
-            ])
+                SelectFilter::make('class')
+                    ->label('Kelas')
+                    ->relationship('class','name'),
+                SelectFilter::make('schoolYearh')
+                    ->label('Tahin Ajaran')
+                    ->relationship('schoolYearh','name'),
+            ], layout: FiltersLayout::AboveContent)
             ->actions([
+                Tables\Actions\Action::make('report')
+                    ->icon('heroicon-s-clipboard-document-list')
+                    ->url(function ($record){;
+                        return route('filament.admin.resources.reports.values',$record->id);
+                    }),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
@@ -90,6 +102,16 @@ class ReportResource extends Resource
     {
         return [
             'index' => Pages\ManageReports::route('/'),
+            'values' => Pages\ManageRelation::route('/{record}/data'),
+        ];
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            RelationManagers\ValuesRelationManager::class,
+            RelationManagers\EvaluasisRelationManager::class,
+            RelationManagers\NotesRelationManager::class,
         ];
     }
 }

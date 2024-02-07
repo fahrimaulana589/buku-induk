@@ -72,9 +72,9 @@ class Student extends Model
         return $this->belongsToMany(SchoolYear::class,'student_dropouts')->withPivot(['semester','reason']);
     }
 
-    public function report()
+    public function reports()
     {
-        return $this->hasOne(Report::class);
+        return $this->hasMany(Report::class);
     }
 
 }

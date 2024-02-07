@@ -27,4 +27,13 @@ class Clas extends Model
             ->withPivot(['teacher_id']);
     }
 
+    public function reports()
+    {
+        return $this->hasMany(Report::class,'class_id');
+    }
+
+    public function students()
+    {
+        return $this->hasMany(Student::class,'class_id');
+    }
 }

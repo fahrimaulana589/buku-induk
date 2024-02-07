@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Filament\Resources\ClasResource\Pages;
+namespace App\Filament\Resources\ReportResource\Pages;
 
 use App\Filament\Resources\ClasResource;
 use App\Filament\Resources\Pages\AttachRecord;
+use App\Filament\Resources\ReportResource;
 use App\Models\Clas;
+use App\Models\Report;
 use App\Models\Teacher;
 use Filament\Actions;
 use Filament\Forms\Components\Select;
@@ -15,32 +17,29 @@ use Filament\Resources\Pages\EditRecord;
 use Filament\Resources\Pages\ManageRecords;
 use Illuminate\Contracts\Support\Htmlable;
 
-class ClassLesson extends AttachRecord
+class ManageRelation extends AttachRecord
 {
-    protected static ?string $model = Clas::class;
-    protected static string $resource = ClasResource::class;
+    protected static ?string $model = Report::class;
+    protected static string $resource = ReportResource::class;
 
     public function getBreadcrumb(): string
     {
-        return "Pelajaran";
+        return $this->record->student->name;
     }
 
     public function form(Form $form): Form
     {
         return $form
             ->schema([
-                Select::make('teacher_id')
-                    ->label('Wali Kelas')
-                    ->relationship('teacher', 'name')
-                    ->disabled(),
-                TextInput::make('name')
-                    ->label('Nama Kelas')
-                    ->disabled()
+
             ])->columns(1);
     }
 
     public function getTitle(): string|Htmlable
     {
-        return 'Daftar Pelajaran';
+        $tahun_ajaran = $this->record->schoolYearh->name;
+        $kelas = $this->record->class->name;
+
+        return "{$kelas} ({$tahun_ajaran})";
     }
 }

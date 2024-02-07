@@ -17,6 +17,16 @@ class Evaluasi extends Model
 
     public function evaluasi()
     {
-        return $this->belongsTo(Evaluasi::class);
+        return $this->belongsTo(Evaluasi::class,'evaluasi_id');
+    }
+
+    public function evaluasis()
+    {
+        return $this->hasMany(Evaluasi::class,'evaluasi_id');
+    }
+
+    public function reports()
+    {
+        return $this->belongsToMany(Report::class,'evaluasi_reports')->withPivot(['value']);
     }
 }

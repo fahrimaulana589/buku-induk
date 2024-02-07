@@ -17,11 +17,11 @@ class EvaluasiResource extends Resource
 {
     protected static ?string $model = Evaluasi::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-face-smile';
 
-    protected static ?string $pluralLabel = "Data Penilaian Siswa";
+    protected static ?string $pluralLabel = "Data Penilaian Sikap";
 
-    protected static ?string $label = "Data Penilaian Siswa";
+    protected static ?string $label = "Data Penilaian Sikap";
     protected static ?string $navigationGroup = "Master Akademik";
     protected static ?int $navigationSort = 6;
 
@@ -43,7 +43,9 @@ class EvaluasiResource extends Resource
                     ->relationship('evaluasi','name',function (Builder $query){
                         return $query->where('type','=','induk');
                     })
-                    ->required()
+                    ->required(function (Forms\Get $get){
+                        return $get('type') == 'turunan';
+                    })
                     ->disabled(function (Forms\Get $get){
                         return $get('type') != 'turunan';
                     }),
@@ -59,7 +61,7 @@ class EvaluasiResource extends Resource
                     ->label('Nama'),
                 Tables\Columns\TextColumn::make('type')
                     ->label('Type'),
-                Tables\Columns\TextColumn::make('lesson.name')
+                Tables\Columns\TextColumn::make('evaluasi.name')
                     ->label('Induk'),
             ])
             ->filters([

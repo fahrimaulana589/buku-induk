@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Models\Guardian;
+use App\Models\Report;
 use App\Observers\GuardianObserver;
+use App\Observers\ReportObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -28,6 +30,7 @@ class EventServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Guardian::observe(GuardianObserver::class);
+        Report::observe(ReportObserver::class);
     }
 
     /**

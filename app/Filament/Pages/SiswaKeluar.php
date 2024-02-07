@@ -19,7 +19,7 @@ class SiswaKeluar extends Page implements HasForms,HasTable
     use InteractsWithTable;
     use InteractsWithForms;
 
-    protected static ?string $navigationIcon = 'heroicon-o-document-text';
+    protected static ?string $navigationIcon = 'heroicon-o-exclamation-circle';
 
     protected static string $view = 'filament.pages.siswa-keluar';
 
@@ -57,6 +57,10 @@ class SiswaKeluar extends Page implements HasForms,HasTable
                     ->label('Tanggal Lahir'),
                 TextColumn::make('religion')
                     ->label('Agama'),
+                TextColumn::make('reports.id')
+                    ->formatStateUsing(fn (string $state): string => count(explode(",",$state)))
+                    ->label('Jumlah Semester'),
+
             ])
             ->filters([
                 SelectFilter::make('lulus')

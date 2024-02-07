@@ -13,4 +13,9 @@ class Note extends Model
         'report_id',
         'value',
     ];
+
+    public function report()
+    {
+        return $this->belongsTo(Report::class);
+    }
 }

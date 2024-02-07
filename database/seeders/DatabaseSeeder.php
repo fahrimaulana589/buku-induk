@@ -21,6 +21,8 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
@@ -30,6 +32,52 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call(FilamentAccessControlSeeder::class);
+
+        $permissions = [
+            "lesson.update",
+            "teacher.update",
+            "class.update",
+            "schoolYear.update",
+            "test.update",
+            "evaluasi.update",
+            "mother.update",
+            "father.update",
+            "Guard.update",
+            "student.update",
+            "naik.update",
+            "aktif.update",
+            "lulus.update",
+            "keluar.update",
+            "report.update",
+            "lesson.view",
+            "teacher.view",
+            "class.view",
+            "schoolYear.view",
+            "test.view",
+            "evaluasi.view",
+            "mother.view",
+            "father.view",
+            "Guard.view",
+            "student.view",
+            "naik.view",
+            "aktif.view",
+            "lulus.view",
+            "keluar.view",
+            "report.view"
+        ];
+
+        foreach ($permissions as $permission) {
+            Permission::create([
+                'name' => $permission,
+                'guard_name' => 'filament',
+            ]);
+        }
+
+        $role = Role::find(1);
+
+        foreach ($permissions as $permission) {
+            $role->givePermissionTo($permission);
+        }
 
         $user = User::factory()->create([
             'first_name' => 'admin',

@@ -17,9 +17,9 @@ class SchoolYearResource extends Resource
 {
     protected static ?string $model = SchoolYear::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-calendar-days';
 
-    protected static ?string $pluralLabel = "Data Angkatan/Ajaran";
+    protected static ?string $pluralLabel = "Data Angkatan/Tahun Ajaran";
 
     protected static ?string $label = "Data Angkatan/Tahun Ajaran";
     protected static ?int $navigationSort = 4;

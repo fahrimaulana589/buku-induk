@@ -17,11 +17,11 @@ class TestResource extends Resource
 {
     protected static ?string $model = Test::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-light-bulb';
 
-    protected static ?string $pluralLabel = "Data Pengujian Siswa";
+    protected static ?string $pluralLabel = "Data Pengujian Kompetensi";
 
-    protected static ?string $label = "Data Pengujian Siswa";
+    protected static ?string $label = "Data Pengujian Kompetensi";
     protected static ?string $navigationGroup = "Master Akademik";
     protected static ?int $navigationSort = 5;
 

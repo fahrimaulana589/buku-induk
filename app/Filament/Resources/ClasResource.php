@@ -18,7 +18,7 @@ class ClasResource extends Resource
 {
     protected static ?string $model = Clas::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-building-office-2';
 
     protected static ?string $pluralLabel = "Data Kelas";
 
@@ -92,7 +92,8 @@ class ClasResource extends Resource
             ->actions([
                 Tables\Actions\Action::make('pelajaran')
                     ->url(fn (Clas $record): string => route('filament.admin.resources.clas.lesson', $record))
-                    ->openUrlInNewTab(),
+                    ->openUrlInNewTab()
+                    ->icon('heroicon-s-newspaper'),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
@@ -107,7 +108,7 @@ class ClasResource extends Resource
     {
         return [
             'index' => Pages\ManageClas::route('/'),
-            'lesson' => Pages\ClassLesson::route('/{record}/lessons'),
+            'lesson' => Pages\ManageRelation::route('/{record}/lessons'),
         ];
     }
 

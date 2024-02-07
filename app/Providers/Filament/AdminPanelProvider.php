@@ -59,6 +59,7 @@ class AdminPanelProvider extends PanelProvider
                 'Master Akademik',
                 'Master Siswa',
                 'Mutasi Data Siswa',
+                'Master Report',
                 'Administration',
             ]);
     }

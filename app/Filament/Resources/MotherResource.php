@@ -17,7 +17,7 @@ class MotherResource extends Resource
 {
     protected static ?string $model = Mother::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-user';
     protected static ?string $pluralLabel = "Data Ibu";
 
     protected static ?string $label = "Data Ibu";

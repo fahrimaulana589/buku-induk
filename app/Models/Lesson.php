@@ -24,4 +24,9 @@ class Lesson extends Model
     {
         return $this->belongsToMany(Clas::class,'class_lessons','lesson_id','class_id')->withPivot('teacher_id');
     }
+
+    public function reports()
+    {
+        return $this->belongsToMany(Report::class,'lesson_values')->withPivot(['test_id','value']);
+    }
 }

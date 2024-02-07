@@ -28,4 +28,19 @@ class Report extends Model
     {
         return $this->belongsTo(SchoolYear::class, 'school_year_id');
     }
+
+    public function values()
+    {
+        return $this->belongsToMany(Lesson::class, 'lesson_values')->withPivot(['test_id','value']);
+    }
+
+    public function evaluasis()
+    {
+        return $this->belongsToMany(Evaluasi::class, 'evaluasi_reports')->withPivot(['value']);
+    }
+
+    public function notes()
+    {
+        return $this->hasMany(Note::class,'report_id');
+    }
 }
