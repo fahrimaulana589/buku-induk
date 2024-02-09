@@ -2,10 +2,13 @@
 
 namespace App\Filament\Pages;
 
+use App\Filament\Resources\ClasResource\Pages\ManageClas;
+use App\Filament\Resources\ClasResource\Pages\ManageRelation;
 use App\Models\Clas;
 use App\Models\Report;
 use App\Models\SchoolYear;
 use App\Models\Student;
+use Chiiya\FilamentAccessControl\Traits\AuthorizesPageAccess;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
@@ -19,26 +22,23 @@ use Filament\Tables\Enums\FiltersLayout;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Auth;
 
 class SiswaAktif extends Page implements HasForms,HasTable
 {
     use InteractsWithTable;
     use InteractsWithForms;
+    use AuthorizesPageAccess;
 
     protected static ?string $navigationIcon = 'heroicon-o-check-circle';
+
+    public static string $permission = 'aktif.view';
 
     protected static string $view = 'filament.pages.siswa-aktif';
     protected static ?string $navigationGroup = 'Mutasi Data Siswa';
     protected static ?string $navigationLabel = "Siswa Aktif";
 
     protected static ?int $navigationSort = 2;
-
-    public ?array $data = [];
-
-    public function mount(): void
-    {
-        $this->form->fill();
-    }
 
     public function table(Table $table): Table
     {
@@ -77,6 +77,10 @@ class SiswaAktif extends Page implements HasForms,HasTable
             ])
             ->groupedBulkActions([
                 BulkAction::make('Report')
+                    ->visible(function (){
+                        $user = Auth::user()->can('aktif.update');
+                        return $user;
+                    })
                     ->form([
                         Select::make('class_id')
                             ->label('Kelas')

@@ -206,6 +206,7 @@ class GuardianResource extends Resource
                 //
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
@@ -220,6 +221,7 @@ class GuardianResource extends Resource
     {
         return [
             'index' => Pages\ManageGuardians::route('/'),
+            'view' => Pages\ViewGuardian::route('/{record}'),
         ];
     }
 }

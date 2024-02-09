@@ -15,7 +15,7 @@ class SchoolYearPolicy
 
     public function viewAny(FilamentUser $user): bool
     {
-        return $user->can('schoolYear.update');
+        return $user->can('schoolYear.view');
     }
 
     public function delete(Model $user, SchoolYear $schoolYear): bool
@@ -31,6 +31,32 @@ class SchoolYearPolicy
         };
 
         if($schoolYear->reports()->count() > 0){
+            $result = false;
+        };
+
+        if(!$user->can('schoolYear.update')){
+            $result = false;
+        };
+
+        return $result;
+    }
+
+    public function update(FilamentUser $user)
+    {
+        $result = true;
+
+        if(!$user->can('schoolYear.update')){
+            $result = false;
+        };
+
+        return $result;
+    }
+
+    public function create(FilamentUser $user): bool
+    {
+        $result = true;
+
+        if(!$user->can('schoolYear.update')){
             $result = false;
         };
 

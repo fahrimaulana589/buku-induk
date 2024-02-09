@@ -14,7 +14,7 @@ class FatherPolicy
 
     public function viewAny(FilamentUser $user): bool
     {
-        return $user->can('father.update');
+        return $user->can('father.view');
     }
     public function delete(Model $user, Father $father): bool
     {
@@ -22,6 +22,33 @@ class FatherPolicy
         if ($father->students->count() > 0){
             $result = false;
         }
+
+        if(!$user->can('father.update')){
+            $result = false;
+        };
+
+        return $result;
+    }
+
+    public function update(FilamentUser $user)
+    {
+        $result = true;
+
+        if(!$user->can('father.update')){
+            $result = false;
+        };
+
+        return $result;
+    }
+
+    public function create(FilamentUser $user): bool
+    {
+        $result = true;
+
+        if(!$user->can('father.update')){
+            $result = false;
+        };
+
         return $result;
     }
 }

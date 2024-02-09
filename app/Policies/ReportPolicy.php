@@ -14,7 +14,7 @@ class ReportPolicy
 
     public function viewAny(FilamentUser $user): bool
     {
-        return $user->can('report.update');
+        return $user->can('report.view');
     }
 
     public function delete(Model $user, Report $report)
@@ -31,6 +31,22 @@ class ReportPolicy
         if ($report->notes->count() > 0){
             $result = false;
         }
+
+        if(!$user->can('report.update')){
+            $result = false;
+        };
+
+        return $result;
+    }
+
+    public function create(FilamentUser $user): bool
+    {
+        $result = true;
+
+        if(!$user->can('report.update')){
+            $result = false;
+        };
+
         return $result;
     }
 }

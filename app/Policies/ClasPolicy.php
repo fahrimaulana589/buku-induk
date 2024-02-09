@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Models\Clas;
 use App\Models\Father;
+use App\Models\User;
 use Chiiya\FilamentAccessControl\Models\FilamentUser;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Database\Eloquent\Model;
@@ -14,7 +15,7 @@ class ClasPolicy
 
     public function viewAny(FilamentUser $user): bool
     {
-        return $user->can('class.update');
+        return $user->can('class.view');
     }
 
     public function delete(Model $user, Clas $class)
@@ -31,6 +32,22 @@ class ClasPolicy
         if ($class->lessons->count() > 0){
             $result = false;
         }
+
+        if(!$user->can('class.update')){
+            $result = false;
+        };
+
+        return $result;
+    }
+
+    public function create(FilamentUser $user): bool
+    {
+        $result = true;
+
+        if(!$user->can('class.update')){
+            $result = false;
+        };
+
         return $result;
     }
 }

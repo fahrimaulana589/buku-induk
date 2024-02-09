@@ -14,6 +14,7 @@ use Filament\Tables\Actions\AttachAction;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 
 class LessonsRelationManager extends RelationManager
 {
@@ -37,7 +38,7 @@ class LessonsRelationManager extends RelationManager
                 Tables\Columns\TextColumn::make('name')
                     ->label('Nama'),
                 Tables\Columns\TextColumn::make('clas.teacher_id')
-                    ->formatStateUsing(function (string $state){
+                    ->formatStateUsing(function (string $state) {
                         return Teacher::find($state)->name;
                     })
                     ->label('Pengajar'),
@@ -47,21 +48,33 @@ class LessonsRelationManager extends RelationManager
             ])
             ->headerActions([
                 Tables\Actions\AttachAction::make()
-                    ->form(fn (AttachAction $action): array => [
+                    ->visible(function (){
+                        $user = Auth::user()->can('class.update');
+                        return $user;
+                    })
+                    ->form(fn(AttachAction $action): array => [
                         $action->getRecordSelect()
                             ->label('Pelajaran'),
                         Forms\Components\Select::make('teacher_id')
                             ->label('Guru')
                             ->options(Teacher::all()->pluck('name', 'id'))
                     ])
-                ->preloadRecordSelect(),
+                    ->preloadRecordSelect(),
             ])
             ->actions([
-                Tables\Actions\DetachAction::make(),
+                Tables\Actions\DetachAction::make()
+                    ->visible(function () {
+                        $user = Auth::user()->can('class.update');
+                        return $user;
+                    }),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DetachBulkAction::make(),
+                    Tables\Actions\DetachBulkAction::make()
+                        ->visible(function () {
+                            $user = Auth::user()->can('class.update');
+                            return $user;
+                        }),
                 ]),
             ]);
     }

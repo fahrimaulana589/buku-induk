@@ -16,7 +16,7 @@ class EvaluasiPolicy
 
     public function viewAny(FilamentUser $user): bool
     {
-        return $user->can('evaluasi.update');
+        return $user->can('evaluasi.view');
     }
 
     public function delete(Model $user, Evaluasi $evaluasi)
@@ -30,6 +30,32 @@ class EvaluasiPolicy
         if ($evaluasi->evaluasis->count() > 0){
             $result = false;
         }
+
+        if(!$user->can('evaluasi.update')){
+            $result = false;
+        };
+
+        return $result;
+    }
+
+    public function update(FilamentUser $user)
+    {
+        $result = true;
+
+        if(!$user->can('evaluasi.update')){
+            $result = false;
+        };
+
+        return $result;
+    }
+
+    public function create(FilamentUser $user): bool
+    {
+        $result = true;
+
+        if(!$user->can('evaluasi.update')){
+            $result = false;
+        };
 
         return $result;
     }

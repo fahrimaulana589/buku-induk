@@ -4,6 +4,9 @@ namespace App\Filament\Pages;
 
 use App\Models\Clas;
 use App\Models\Student;
+use App\Models\User;
+use Chiiya\FilamentAccessControl\Models\FilamentUser;
+use Chiiya\FilamentAccessControl\Traits\AuthorizesPageAccess;
 use Filament\Actions\Action;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
@@ -29,27 +32,24 @@ use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Auth;
 
 class MutasiKelas extends Page implements HasForms,HasTable
 {
     use InteractsWithTable;
     use InteractsWithForms;
+    use AuthorizesPageAccess;
 
     protected static ?string $navigationIcon = 'heroicon-o-arrows-up-down';
 
     protected static string $view = 'filament.pages.mutasi-kelas';
 
+    public static string $permission = 'naik.view';
+
     protected static ?string $navigationGroup = 'Mutasi Data Siswa';
     protected static ?string $navigationLabel = "Naik/Ganti Kelas";
 
     protected static ?int $navigationSort = 1;
-
-    public ?array $data = [];
-
-    public function mount(): void
-    {
-        $this->form->fill();
-    }
 
     public function table(Table $table): Table
     {
@@ -94,6 +94,10 @@ class MutasiKelas extends Page implements HasForms,HasTable
             ->groupedBulkActions([
                 // ...
                 BulkAction::make('Mutasi')
+                    ->visible(function (){
+                        $user = Auth::user()->can('naik.update');
+                        return $user;
+                    })
                     ->form([
                         Select::make('class_id')
                             ->label('Kelas')
@@ -114,6 +118,10 @@ class MutasiKelas extends Page implements HasForms,HasTable
                     })
                 ,
                 BulkAction::make('Lulus')
+                    ->visible(function (){
+                        $user = Auth::user()->can('naik.update');
+                        return $user;
+                    })
                     ->form([
                         Select::make('school_year_id')
                             ->label('Tahun Ajaran')
@@ -131,6 +139,10 @@ class MutasiKelas extends Page implements HasForms,HasTable
                     })
                 ,
                 BulkAction::make('Keluar')
+                    ->visible(function (){
+                        $user = Auth::user()->can('naik.update');
+                        return $user;
+                    })
                     ->form([
                         Select::make('school_year_id')
                             ->label('Tahun Ajaran')

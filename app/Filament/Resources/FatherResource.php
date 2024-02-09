@@ -89,6 +89,7 @@ class FatherResource extends Resource
                 //
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
@@ -103,6 +104,7 @@ class FatherResource extends Resource
     {
         return [
             'index' => Pages\ManageFathers::route('/'),
+            'view' => Pages\ViewFather::route('/{record}'),
         ];
     }
 }

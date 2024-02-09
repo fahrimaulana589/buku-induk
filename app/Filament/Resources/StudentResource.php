@@ -204,6 +204,7 @@ class StudentResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
@@ -217,6 +218,7 @@ class StudentResource extends Resource
     {
         return [
             'index' => Pages\ManageStudents::route('/'),
+            'view' => Pages\ViewStudent::route('/{record}'),
         ];
     }
 }

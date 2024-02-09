@@ -13,6 +13,7 @@ use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Auth;
 
 class ClasResource extends Resource
 {
@@ -94,7 +95,11 @@ class ClasResource extends Resource
                     ->url(fn (Clas $record): string => route('filament.admin.resources.clas.lesson', $record))
                     ->openUrlInNewTab()
                     ->icon('heroicon-s-newspaper'),
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->visible(function (){
+                        $user = Auth::user()->can('class.update');
+                        return $user;
+                    }),
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([

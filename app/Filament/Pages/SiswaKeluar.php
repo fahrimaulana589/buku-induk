@@ -3,6 +3,7 @@
 namespace App\Filament\Pages;
 
 use App\Models\Student;
+use Chiiya\FilamentAccessControl\Traits\AuthorizesPageAccess;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Pages\Page;
@@ -18,8 +19,11 @@ class SiswaKeluar extends Page implements HasForms,HasTable
 {
     use InteractsWithTable;
     use InteractsWithForms;
+    use AuthorizesPageAccess;
 
     protected static ?string $navigationIcon = 'heroicon-o-exclamation-circle';
+
+    public static string $permission = 'keluar.view';
 
     protected static string $view = 'filament.pages.siswa-keluar';
 
@@ -27,13 +31,6 @@ class SiswaKeluar extends Page implements HasForms,HasTable
     protected static ?string $navigationLabel = "Siswa Keluar";
 
     protected static ?int $navigationSort = 4;
-
-    public ?array $data = [];
-
-    public function mount(): void
-    {
-        $this->form->fill();
-    }
 
     public function table(Table $table): Table
     {

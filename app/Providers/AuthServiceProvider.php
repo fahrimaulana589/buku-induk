@@ -6,6 +6,7 @@ namespace App\Providers;
 use App\Models\Clas;
 use App\Models\Evaluasi;
 use App\Models\Father;
+use App\Models\Guardian;
 use App\Models\Lesson;
 use App\Models\Mother;
 use App\Models\Note;
@@ -17,6 +18,7 @@ use App\Models\Test;
 use App\Policies\ClasPolicy;
 use App\Policies\EvaluasiPolicy;
 use App\Policies\FatherPolicy;
+use App\Policies\GuardPolicy;
 use App\Policies\LessonPolicy;
 use App\Policies\MotherPolicy;
 use App\Policies\NotePolicy;
@@ -47,6 +49,7 @@ class AuthServiceProvider extends ServiceProvider
         Test::class => TestPolicy::class,
         Lesson::class => LessonPolicy::class,
         Report::class => ReportPolicy::class,
+        Guardian::class => GuardPolicy::class,
     ];
 
     /**

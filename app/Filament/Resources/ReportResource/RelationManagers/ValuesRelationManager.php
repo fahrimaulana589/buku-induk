@@ -15,6 +15,7 @@ use Filament\Tables\Actions\AttachAction;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 
 class ValuesRelationManager extends RelationManager
 {
@@ -46,6 +47,10 @@ class ValuesRelationManager extends RelationManager
             ])
             ->headerActions([
                 Tables\Actions\AttachAction::make()
+                    ->visible(function (){
+                        $user = Auth::user()->can('report.update');
+                        return $user;
+                    })
                     ->form(fn(AttachAction $action): array => [
                         $action->getRecordSelect()
                             ->label('Pelajaran'),
@@ -59,12 +64,20 @@ class ValuesRelationManager extends RelationManager
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DetachAction::make(),
+                Tables\Actions\DetachAction::make()
+                    ->visible(function (){
+                        $user = Auth::user()->can('report.update');
+                        return $user;
+                    }),
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DetachBulkAction::make(),
+                    Tables\Actions\DetachBulkAction::make()
+                        ->visible(function (){
+                            $user = Auth::user()->can('report.update');
+                            return $user;
+                        }),
                 ]),
             ]);
     }

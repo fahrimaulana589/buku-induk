@@ -3,6 +3,7 @@
 namespace App\Filament\Pages;
 
 use App\Models\Student;
+use Chiiya\FilamentAccessControl\Traits\AuthorizesPageAccess;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Pages\Page;
@@ -19,21 +20,15 @@ class SiswaLulus extends Page implements HasForms,HasTable
 
     use InteractsWithTable;
     use InteractsWithForms;
+    use AuthorizesPageAccess;
 
     protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-check';
-
+    public static string $permission = 'lulus.view';
     protected static string $view = 'filament.pages.siswa-lulus';
     protected static ?string $navigationGroup = 'Mutasi Data Siswa';
     protected static ?string $navigationLabel = "Siswa Tamat";
 
     protected static ?int $navigationSort = 3;
-
-    public ?array $data = [];
-
-    public function mount(): void
-    {
-        $this->form->fill();
-    }
 
     public function table(Table $table): Table
     {
