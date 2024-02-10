@@ -4,24 +4,28 @@ namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
 use App\Models\Clas;
+use App\Models\ClassLesson;
 use App\Models\Evaluasi;
 use App\Models\Father;
 use App\Models\Guardian;
 use App\Models\Lesson;
 use App\Models\Mother;
 use App\Models\Note;
+use App\Models\Profile;
 use App\Models\Report;
 use App\Models\SchoolYear;
 use App\Models\Student;
 use App\Models\Teacher;
 use App\Models\Test;
 use App\Policies\ClasPolicy;
+use App\Policies\ClassLessonPolicy;
 use App\Policies\EvaluasiPolicy;
 use App\Policies\FatherPolicy;
 use App\Policies\GuardPolicy;
 use App\Policies\LessonPolicy;
 use App\Policies\MotherPolicy;
 use App\Policies\NotePolicy;
+use App\Policies\ProfilePolicy;
 use App\Policies\ReportPolicy;
 use App\Policies\SchoolYearPolicy;
 use App\Policies\StudentPolicy;
@@ -50,6 +54,8 @@ class AuthServiceProvider extends ServiceProvider
         Lesson::class => LessonPolicy::class,
         Report::class => ReportPolicy::class,
         Guardian::class => GuardPolicy::class,
+        ClassLesson::class => ClassLessonPolicy::class,
+        Profile::class => ProfilePolicy::class,
     ];
 
     /**

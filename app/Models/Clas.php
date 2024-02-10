@@ -13,7 +13,7 @@ class Clas extends Model
 
     protected $fillable = [
         'name',
-        'teacher_id'
+        'teacher_id',
     ];
 
     public function teacher()
@@ -24,7 +24,7 @@ class Clas extends Model
     public function lessons()
     {
         return $this->belongsToMany(Lesson::class,'class_lessons','class_id','lesson_id')
-            ->withPivot(['teacher_id']);
+            ->withPivot(['teacher_id','day']);
     }
 
     public function reports()

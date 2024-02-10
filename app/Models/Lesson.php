@@ -22,7 +22,7 @@ class Lesson extends Model
 
     public function clas()
     {
-        return $this->belongsToMany(Clas::class,'class_lessons','lesson_id','class_id')->withPivot('teacher_id');
+        return $this->belongsToMany(Clas::class,'class_lessons','lesson_id','class_id')->withPivot(['teacher_id','day']);
     }
 
     public function reports()

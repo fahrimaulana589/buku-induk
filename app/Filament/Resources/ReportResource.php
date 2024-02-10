@@ -87,7 +87,7 @@ class ReportResource extends Resource
                     ->icon('heroicon-s-clipboard-document-list')
                     ->url(function ($record){;
                         return route('filament.admin.resources.reports.values',$record->id);
-                    }),
+                    })->openUrlInNewTab(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])

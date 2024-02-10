@@ -98,7 +98,7 @@ class DatabaseSeeder extends Seeder
 
         Student::factory(1)->create([
             'mother_id' => 1,
-            'father_id' => 1
+            'father_id' => 1,
         ]);
 
         Student::factory(1)->create([
@@ -144,11 +144,11 @@ class DatabaseSeeder extends Seeder
 
         Lesson::factory()->create([
             'name' => 'Matematika'
-        ])->clas()->attach([1 => ['teacher_id' => 1]]);
+        ])->clas()->attach([1 => ['teacher_id' => 1,'day' => 1]]);
 
         Lesson::factory()->create([
             'name' => 'Indonesia'
-        ])->clas()->attach([1 => ['teacher_id' => 1]]);
+        ])->clas()->attach([1 => ['teacher_id' => 1,'day' => 1]]);
 
         SchoolYear::factory()->create([
             'name' => '2022/2023'
