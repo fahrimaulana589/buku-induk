@@ -66,7 +66,7 @@ class AdminPanelProvider extends PanelProvider
                 'Master Report',
                 'Administration',
             ])->brandName(function (){
-                $profile = Profile::find(1);
+                $profile = Profile::findOrNew(1);
                 return  ($profile->name);
             });
     }

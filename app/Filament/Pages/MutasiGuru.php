@@ -50,7 +50,7 @@ class MutasiGuru extends Page implements HasForms, HasTable
 
     protected static string $view = 'filament.pages.mutasi-guru';
 
-    public static string $permission = 'naik.view';
+    public static string $permission = 'ganti-kelas-guru.view';
 
     protected static ?string $navigationGroup = 'Mutasi Data Guru';
     protected static ?string $navigationLabel = "Ganti Kelas Ajar";
@@ -102,8 +102,16 @@ class MutasiGuru extends Page implements HasForms, HasTable
                             ->options(array_slice(Carbon::getDays(), 1))
                             ->required()
                             ->label('Hari'),
-                    ]),
-                DeleteAction::make(),
+                    ])
+                    ->visible(function () {
+                        $user = Auth::user();
+                        return $user->can('ganti-kelas-guru.update');
+                    }),
+                DeleteAction::make()
+                    ->visible(function () {
+                        $user = Auth::user();
+                        return $user->can('ganti-kelas-guru.update');
+                    }),
             ])
             ->groupedBulkActions([
                 BulkAction::make('Ganti Kelas')
@@ -117,7 +125,10 @@ class MutasiGuru extends Page implements HasForms, HasTable
                         $records->each(function (ClassLesson $record) use ($data) {
                             $record->update($data);
                         });
-                    })
+                    })->visible(function () {
+                        $user = Auth::user();
+                        return $user->can('ganti-kelas-guru.update');
+                    }),
             ]);
     }
 
