@@ -15,8 +15,8 @@ return [
     | \Chiiya\FilamentAccessControl\Enumerators\Feature::TWO_FACTOR
     */
     'features' => [
-        //        \Chiiya\FilamentAccessControl\Enumerators\Feature::ACCOUNT_EXPIRY,
-        //        \Chiiya\FilamentAccessControl\Enumerators\Feature::TWO_FACTOR,
+//                \Chiiya\FilamentAccessControl\Enumerators\Feature::ACCOUNT_EXPIRY,
+//                \Chiiya\FilamentAccessControl\Enumerators\Feature::TWO_FACTOR,
     ],
 
     /*

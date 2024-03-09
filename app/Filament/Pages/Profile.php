@@ -65,12 +65,6 @@ class Profile extends Page implements HasForms
     {
         $profile = \App\Models\Profile::findOrNew(1);
 
-        if(!$profile->exists()){
-            $profile->name = 'Sekolah';
-            $profile->logo = 'Sekolah.jpg';
-            $profile->save();
-        }
-
         $this->form->fill($profile->toArray());
     }
 
@@ -84,6 +78,21 @@ class Profile extends Page implements HasForms
                     FileUpload::make('logo')
                         ->image()
                         ->required()
+                ]),
+                Group::make()->schema([
+                    TextInput::make('email')
+                        ->required()
+                        ->email(),
+                    TextInput::make('host')
+                        ->required(),
+                    TextInput::make('port')
+                        ->required()
+                        ->numeric(),
+                    TextInput::make('username')
+                        ->required(),
+                    TextInput::make('password')
+                        ->required()
+                        ->password(),
                 ]),
             ])
             ->statePath('data')
@@ -103,6 +112,11 @@ class Profile extends Page implements HasForms
         $profile = \App\Models\Profile::findOrNew(1);
         $profile->name = $data['name'];
         $profile->logo = $data['logo'];
+        $profile->email = $data['email'];
+        $profile->host = $data['host'];
+        $profile->port = $data['port'];
+        $profile->username = $data['username'];
+        $profile->password = $data['password'];
         $profile->save();
 
         Notification::make()

@@ -14,5 +14,10 @@ class Profile extends Model
     protected $fillable = [
         'name',
         'logo',
+        'email',
+        'host',
+        'port',
+        'username',
+        'password',
     ];
 }
