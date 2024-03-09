@@ -5,9 +5,9 @@
     "lesson.update": "Pelajaran → Edit",
     "teacher.update": "Guru → Edit",
     "class.update": "Kelas → Edit",
-    "schoolYear.update": "Lesson → Edit",
-    "test.update": "Test → Edit",
-    "evaluasi.update": "Sikap → Edit",
+    "schoolYear.update": "Tahun Ajaran → Edit",
+    "test.update": "Test Pengujian → Edit",
+    "evaluasi.update": "Evaluasi Sikap → Edit",
     "mother.update": "Ibu → Edit",
     "father.update": "Ayah → Edit",
     "guard.update": "Wali Murid → Edit",
@@ -20,9 +20,9 @@
     "lesson.view": "Pelajaran → Tampilan",
     "teacher.view": "Guru → Tampilan",
     "class.view": "Kelas → Tampilan",
-    "schoolYear.view": "Lesson → Tampilan",
-    "test.view": "Test → Tampilan",
-    "evaluasi.view": "Sikap → Tampilan",
+    "schoolYear.view": "Tahun Ajaran → Tampilan",
+    "test.view": "Test Pengujian → Tampilan",
+    "evaluasi.view": "Evaluasi Sikap → Tampilan",
     "mother.view": "Ibu → Tampilan",
     "father.view": "Ayah → Tampilan",
     "guard.view": "Wali Murid → Tampilan",
@@ -33,5 +33,6 @@
     "keluar.view": "Siswa Keluar → Tampilan",
     "report.view": "Raport Siswa → Tampilan",
     "ganti-kelas-guru.view" : "Ganti Kelas Ajar → Tampilan" ,
-    "ganti-kelas-guru.update" : "Ganti Kelas Ajar → Edit"
+    "ganti-kelas-guru.update" : "Ganti Kelas Ajar → Edit",
+    "profile.update" : "Profile Sekolah → Edit"
 }

@@ -65,7 +65,8 @@ class DatabaseSeeder extends Seeder
             "keluar.view",
             "report.view",
             "ganti-kelas-guru.view",
-            "ganti-kelas-guru.update"
+            "ganti-kelas-guru.update",
+            "profile.update",
         ];
 
         foreach ($permissions as $permission) {

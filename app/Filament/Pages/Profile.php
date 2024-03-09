@@ -52,7 +52,7 @@ class Profile extends Page implements HasForms
 
     protected static string $view = 'filament.pages.profile-sekolah';
 
-    public static string $permission = 'naik.view';
+    public static string $permission = 'profile.update';
 
     protected static ?string $navigationGroup = 'Master Akademik';
     protected static ?string $navigationLabel = "Profil Sekolah";
