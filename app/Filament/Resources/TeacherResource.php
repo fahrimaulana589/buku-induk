@@ -83,6 +83,10 @@ class TeacherResource extends Resource
                     Forms\Components\TextInput::make('phone')
                         ->label('Handphone')
                         ->required(),
+                    Forms\Components\TextInput::make('email')
+                        ->label('Email')
+                        ->helperText("pasrtikan email sesui dengan user yang ada di akun")
+                        ->required(),
                     Forms\Components\Select::make('status')
                         ->label('Status')
                         ->options([
@@ -115,6 +119,7 @@ class TeacherResource extends Resource
                 Tables\Columns\TextColumn::make('religion')
                     ->label('Agama'),
                 Tables\Columns\TextColumn::make('phone'),
+                Tables\Columns\TextColumn::make('email'),
             ])
             ->filters([
                 //

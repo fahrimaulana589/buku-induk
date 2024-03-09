@@ -25,6 +25,7 @@ class TeacherFactory extends Factory
             'religion' => 'islam',
             'address' => $this->faker->address(),
             'phone' => $this->faker->phoneNumber(),
+            'email' => $this->faker->email(),
             'education' => 's1',
             'status' => 'nikah',
             'work_start_date' => Carbon::now(),

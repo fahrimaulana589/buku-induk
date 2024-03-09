@@ -22,6 +22,7 @@ class Teacher extends Model
         'religion',
         'address',
         'phone',
+        'email',
         'education',
         'status',
         'work_start_date',
