@@ -103,7 +103,6 @@ class MotherResource extends Resource
     {
         return [
             'index' => Pages\ManageMothers::route('/'),
-            'view' => Pages\ViewMother::route('/{record}'),
         ];
     }
 }

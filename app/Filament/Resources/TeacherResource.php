@@ -140,7 +140,6 @@ class TeacherResource extends Resource
     {
         return [
             'index' => Pages\ManageTeachers::route('/'),
-            'view' => Pages\ViewTeacher::route('/{record}'),
         ];
     }
 }

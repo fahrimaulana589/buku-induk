@@ -221,7 +221,6 @@ class GuardianResource extends Resource
     {
         return [
             'index' => Pages\ManageGuardians::route('/'),
-            'view' => Pages\ViewGuardian::route('/{record}'),
         ];
     }
 }

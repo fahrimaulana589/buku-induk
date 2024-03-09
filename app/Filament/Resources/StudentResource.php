@@ -218,7 +218,6 @@ class StudentResource extends Resource
     {
         return [
             'index' => Pages\ManageStudents::route('/'),
-            'view' => Pages\ViewStudent::route('/{record}'),
         ];
     }
 }

@@ -104,7 +104,6 @@ class FatherResource extends Resource
     {
         return [
             'index' => Pages\ManageFathers::route('/'),
-            'view' => Pages\ViewFather::route('/{record}'),
         ];
     }
 }
