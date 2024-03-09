@@ -40,6 +40,11 @@ class SiswaAktif extends Page implements HasForms,HasTable
 
     protected static ?int $navigationSort = 2;
 
+    public function mount(): void
+    {
+        static::authorizePageAccess();
+    }
+
     public function table(Table $table): Table
     {
         return $table

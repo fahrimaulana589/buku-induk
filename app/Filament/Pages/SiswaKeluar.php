@@ -32,6 +32,11 @@ class SiswaKeluar extends Page implements HasForms,HasTable
 
     protected static ?int $navigationSort = 4;
 
+    public function mount(): void
+    {
+        static::authorizePageAccess();
+    }
+
     public function table(Table $table): Table
     {
         return $table

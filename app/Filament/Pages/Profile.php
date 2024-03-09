@@ -63,8 +63,9 @@ class Profile extends Page implements HasForms
 
     public function mount(): void
     {
-        $profile = \App\Models\Profile::findOrNew(1);
+        static::authorizePageAccess();
 
+        $profile = \App\Models\Profile::findOrNew(1);
         $this->form->fill($profile->toArray());
     }
 
