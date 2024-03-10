@@ -4,7 +4,7 @@ namespace App\Policies;
 
 use App\Models\Guardian;
 use App\Models\User;
-use Chiiya\FilamentAccessControl\Models\FilamentUser;
+use App\Models\FilamentUser;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class GuardPolicy

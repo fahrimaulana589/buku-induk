@@ -1,9 +1,10 @@
 <?php
+;
 
-use Chiiya\FilamentAccessControl\Resources\FilamentUserResource;
+use App\Filament\Resources\FilamentUserResource;
+use App\Models\FilamentUser;
 use Chiiya\FilamentAccessControl\Resources\RoleResource;
 use Chiiya\FilamentAccessControl\Resources\PermissionResource;
-use Chiiya\FilamentAccessControl\Models\FilamentUser;
 
 return [
     /*

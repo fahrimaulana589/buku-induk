@@ -8,7 +8,7 @@ use App\Models\Lesson;
 use App\Models\Student;
 use App\Models\Teacher;
 use App\Models\User;
-use Chiiya\FilamentAccessControl\Models\FilamentUser;
+use App\Models\FilamentUser;
 use Chiiya\FilamentAccessControl\Traits\AuthorizesPageAccess;
 use Filament\Actions\Action;
 use Filament\Actions\Concerns\InteractsWithActions;

@@ -4,7 +4,7 @@ namespace App\Policies;
 
 use App\Models\Father;
 use App\Models\User;
-use Chiiya\FilamentAccessControl\Models\FilamentUser;
+use App\Models\FilamentUser;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Database\Eloquent\Model;
 

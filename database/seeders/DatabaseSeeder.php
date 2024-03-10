@@ -15,7 +15,7 @@ use App\Models\Teacher;
 use App\Models\Test;
 use App\Models\User;
 use Chiiya\FilamentAccessControl\Database\Seeders\FilamentAccessControlSeeder;
-use Chiiya\FilamentAccessControl\Models\FilamentUser;
+use App\Models\FilamentUser;
 use Database\Factories\TestFactory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
