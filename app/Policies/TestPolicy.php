@@ -15,18 +15,23 @@ class TestPolicy
 
     public function viewAny(FilamentUser $user): bool
     {
-        return $user->can('test.view');
+        return $user->can('test.view') | $user->can('report.view');
+    }
+
+    public function view(FilamentUser $user)
+    {
+        return true;
     }
 
     public function delete(FilamentUser $user, Test $test): bool
     {
         $result = true;
 
-        if($test->reports()->count() > 0){
+        if ($test->reports()->count() > 0) {
             $result = false;
         };
 
-        if(!$user->can('test.update')){
+        if (!$user->can('test.update')) {
             $result = false;
         };
 
@@ -37,7 +42,7 @@ class TestPolicy
     {
         $result = true;
 
-        if(!$user->can('test.update')){
+        if (!$user->can('test.update')) {
             $result = false;
         };
 
@@ -48,7 +53,7 @@ class TestPolicy
     {
         $result = true;
 
-        if(!$user->can('test.update')){
+        if (!$user->can('test.update')) {
             $result = false;
         };
 

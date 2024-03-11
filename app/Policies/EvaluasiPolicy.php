@@ -16,7 +16,7 @@ class EvaluasiPolicy
 
     public function viewAny(FilamentUser $user): bool
     {
-        return $user->can('evaluasi.view');
+        return $user->can('evaluasi.view') | $user->can('report.view');
     }
 
     public function delete(Model $user, Evaluasi $evaluasi)

@@ -14,6 +14,7 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 
 class ReportResource extends Resource
 {
@@ -88,7 +89,11 @@ class ReportResource extends Resource
                     ->url(function ($record){;
                         return route('filament.admin.resources.reports.values',$record->id);
                     })->openUrlInNewTab(),
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->visible(function (){
+                        $user = Auth::user();
+                        return $user->can('report.update');
+                    }),
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([

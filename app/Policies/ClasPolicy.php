@@ -15,7 +15,7 @@ class ClasPolicy
 
     public function viewAny(FilamentUser $user): bool
     {
-        return $user->can('class.view');
+        return $user->can('class.view')  | $user->can('report.view');
     }
 
     public function delete(Model $user, Clas $class)

@@ -16,6 +16,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Auth;
+use PhpOffice\PhpSpreadsheet\Calculation\Logical\Boolean;
 
 class ValuesRelationManager extends RelationManager
 {
@@ -48,8 +49,7 @@ class ValuesRelationManager extends RelationManager
             ->headerActions([
                 Tables\Actions\AttachAction::make()
                     ->visible(function (){
-                        $user = Auth::user()->can('report.update');
-                        return $user;
+                        return $this->isVisible('report.update');
                     })
                     ->form(fn(AttachAction $action): array => [
                         $action->getRecordSelect()
@@ -66,8 +66,7 @@ class ValuesRelationManager extends RelationManager
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DetachAction::make()
                     ->visible(function (){
-                        $user = Auth::user()->can('report.update');
-                        return $user;
+                        return $this->isVisible('report.delete');
                     }),
                 Tables\Actions\DeleteAction::make(),
             ])
@@ -75,11 +74,15 @@ class ValuesRelationManager extends RelationManager
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DetachBulkAction::make()
                         ->visible(function (){
-                            $user = Auth::user()->can('report.update');
-                            return $user;
+                           return $this->isVisible('report.delete');
                         }),
                 ]),
             ]);
+    }
+
+    function isVisible(string $ability){
+        $user = (Boolean) Auth::user()->can($ability);
+        return $user;
     }
 
     protected static ?string $title = "Nilai Matapelajaran";

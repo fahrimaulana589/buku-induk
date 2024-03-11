@@ -16,6 +16,8 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
+use PhpOffice\PhpSpreadsheet\Calculation\Logical\Boolean;
 
 class NotesRelationManager extends RelationManager
 {
@@ -44,18 +46,35 @@ class NotesRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                Tables\Actions\CreateAction::make()
+                    ->visible(function (){
+                        return $this->isVisible('report.update');
+                    }),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->visible(function (){
+                        return $this->isVisible('report.update');
+                    }),
+                Tables\Actions\DeleteAction::make()
+                    ->visible(function (){
+                        return $this->isVisible('report.delete');
+                    }),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()
+                    ->visible(function (){
+                        return $this->isVisible('report.delete');
+                    }),
                 ]),
             ]);
     }
 
     protected static ?string $title = "Catatan";
+
+    function isVisible(string $ability){
+        $user = (Boolean) Auth::user()->can($ability);
+        return $user;
+    }
 }

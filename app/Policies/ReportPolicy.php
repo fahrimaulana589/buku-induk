@@ -32,7 +32,7 @@ class ReportPolicy
             $result = false;
         }
 
-        if(!$user->can('report.update')){
+        if(!$user->can('report.delete')){
             $result = false;
         };
 
@@ -43,8 +43,23 @@ class ReportPolicy
     {
         $result = true;
 
+        if(!$user->can('report.create')){
+            $result = false;
+        };
+
+        return $result;
+    }
+
+    public function update(FilamentUser $user): bool
+    {
+        $result = true;
+
         if(!$user->can('report.update')){
             $result = false;
+        };
+
+        if($user->isTeacher()){
+            $result = true;
         };
 
         return $result;

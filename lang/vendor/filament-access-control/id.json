@@ -16,7 +16,7 @@
     "aktif.update": "Siswa Aktif → Edit",
     "lulus.update": "Siswa Lulus → Edit",
     "keluar.update": "Siswa Keluar → Edit",
-    "report.update": "Raport → Edit",
+    "report.update": "Raport Siswa → Edit",
     "lesson.view": "Pelajaran → Tampilan",
     "teacher.view": "Guru → Tampilan",
     "class.view": "Kelas → Tampilan",
@@ -34,5 +34,7 @@
     "report.view": "Raport Siswa → Tampilan",
     "ganti-kelas-guru.view" : "Ganti Kelas Ajar → Tampilan" ,
     "ganti-kelas-guru.update" : "Ganti Kelas Ajar → Edit",
-    "profile.update" : "Profile Sekolah → Edit"
+    "profile.update" : "Profile Sekolah → Edit",
+    "report.create": "Raport Siswa → Buat",
+    "report.delete": "Raport Siswa → Hapus"
 }

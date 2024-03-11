@@ -14,7 +14,7 @@ class LessonPolicy
 
     public function viewAny(FilamentUser $user): bool
     {
-        return $user->can('lesson.view');
+        return $user->can('lesson.view') | $user->can('report.view');
     }
 
     public function delete(Model $user, Lesson $lesson): bool
