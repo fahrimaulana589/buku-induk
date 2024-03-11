@@ -31,9 +31,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call(FilamentAccessControlSeeder::class);
-
         $permissions = [
+            'admin-users.update',
+            'permissions.update',
             "lesson.update",
             "teacher.update",
             "class.update",
@@ -67,6 +67,8 @@ class DatabaseSeeder extends Seeder
             "ganti-kelas-guru.view",
             "ganti-kelas-guru.update",
             "profile.update",
+            "report.create",
+            "report.delete",
         ];
 
         foreach ($permissions as $permission) {
@@ -76,13 +78,37 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        $role = Role::find(1);
+        $admin = Role::create([
+            'name' => 'Admin',
+            'guard_name' => 'filament',
+        ]);
 
         foreach ($permissions as $permission) {
-            $role->givePermissionTo($permission);
+            $admin->givePermissionTo($permission);
         }
 
-        $user = User::factory()->create([
+        $permissions = [
+            "mother.view",
+            "father.view",
+            "guard.view",
+            "student.view",
+            "aktif.view",
+            "lulus.view",
+            "keluar.view",
+            "report.view",
+            "profile.update",
+        ];
+
+        $guru = Role::create([
+            'name' => 'Guru',
+            'guard_name' => 'filament',
+        ]);
+
+        foreach ($permissions as $permission) {
+            $guru->givePermissionTo($permission);
+        }
+
+        $adminUser = User::factory()->create([
             'first_name' => 'admin',
             'last_name' => 'admin',
             'email' => 'admin@admin.com',
@@ -91,9 +117,23 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('model_has_roles')->insert([
-            'role_id' => 1,
+            'role_id' => $admin->id,
             'model_type' => FilamentUser::class,
-            'model_id' => $user->id
+            'model_id' => $adminUser->id
+        ]);
+
+        $guruUser = User::factory()->create([
+            'first_name' => 'guru',
+            'last_name' => 'guru',
+            'email' => 'guru@admin.com',
+            'password' => Hash::make('guru'),
+            'remember_token' => '11111q',
+        ]);
+
+        DB::table('model_has_roles')->insert([
+            'role_id' => $guru->id,
+            'model_type' => FilamentUser::class,
+            'model_id' => $guruUser->id
         ]);
 
         Mother::factory(12)->create();

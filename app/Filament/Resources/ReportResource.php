@@ -92,7 +92,7 @@ class ReportResource extends Resource
                 Tables\Actions\EditAction::make()
                     ->visible(function (){
                         $user = Auth::user();
-                        return $user->can('report.update');
+                        return $user->can('report.create');
                     }),
                 Tables\Actions\DeleteAction::make(),
             ])
