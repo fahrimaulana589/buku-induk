@@ -2,25 +2,22 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Clas;
 use App\Models\Evaluasi;
 use App\Models\Father;
 use App\Models\Guardian;
 use App\Models\Lesson;
 use App\Models\Mother;
+use App\Models\Profile;
 use App\Models\SchoolYear;
 use App\Models\Student;
 use App\Models\Teacher;
 use App\Models\Test;
 use App\Models\User;
-use Chiiya\FilamentAccessControl\Database\Seeders\FilamentAccessControlSeeder;
 use App\Models\FilamentUser;
-use Database\Factories\TestFactory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -122,7 +119,7 @@ class DatabaseSeeder extends Seeder
             'model_id' => $adminUser->id
         ]);
 
-        $guruUser = User::factory()->create([
+        $guruUser = FilamentUser::factory()->create([
             'first_name' => 'guru',
             'last_name' => 'guru',
             'email' => 'guru@admin.com',
@@ -135,6 +132,28 @@ class DatabaseSeeder extends Seeder
             'model_type' => FilamentUser::class,
             'model_id' => $guruUser->id
         ]);
+
+        $permissions = [
+            "mother.view",
+            "father.view",
+            "guard.view",
+            "student.view",
+            "aktif.view",
+            "lulus.view",
+            "keluar.view",
+            "report.view",
+            "profile.update",
+            "report.create",
+        ];
+
+        $waliMurid = Role::create([
+            'name' => 'Wali Murid',
+            'guard_name' => 'filament',
+        ]);
+
+        foreach ($permissions as $permission) {
+            $waliMurid->givePermissionTo($permission);
+        }
 
         Mother::factory(12)->create();
         Father::factory(12)->create();
@@ -159,6 +178,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Teacher::factory(5)->create();
+        $guruUser->teachers()->sync([1]);
 
         Clas::factory(1)->create([
             'name' => 'Kelas 1',
@@ -207,6 +227,10 @@ class DatabaseSeeder extends Seeder
 
         Evaluasi::factory()->create([
             'name' => 'Sikap'
+        ]);
+
+        Profile::factory()->create([
+           'id' => 1
         ]);
     }
 }

@@ -14,11 +14,11 @@ class ProfileFactory extends Factory
         return [
             'name' => $this->faker->name(),
             'logo' => $this->faker->word(),
-            'email' => "xample@gmail.com",
-            'host' => 'mail.com',
-            'port' => '20',
-            'username'=> 'username',
-            'password' => 'password',
+            'email' => 'email@email.com',
+            'host' => Env('MAIL_HOST'),
+            'port' => Env('MAIL_PORT'),
+            'username'=> Env('MAIL_USERNAME'),
+            'password' => Env('MAIL_PASSWORD'),
         ];
     }
 }

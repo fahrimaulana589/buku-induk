@@ -27,7 +27,7 @@ class TeacherFactory extends Factory
             'phone' => $this->faker->phoneNumber(),
             'email' => $this->faker->email(),
             'education' => 's1',
-            'status' => 'nikah',
+            'status' => 'menikah',
             'work_start_date' => Carbon::now(),
         ];
     }

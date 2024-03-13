@@ -43,7 +43,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
-class Profile extends Page implements HasForms
+class ProfileSekolah extends Page implements HasForms
 {
     use InteractsWithForms;
     use AuthorizesPageAccess;

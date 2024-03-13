@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Chiiya\FilamentAccessControl\Contracts\AccessControlUser;
-use Chiiya\FilamentAccessControl\Database\Factories\FilamentUserFactory;
 use Chiiya\FilamentAccessControl\Enumerators\RoleName;
 use Chiiya\FilamentAccessControl\Notifications\TwoFactorCode;
+use Database\Factories\FilamentUserFactory;
 use Filament\Models\Contracts\FilamentUser as FilamentUserInterface;
+use Filament\Models\Contracts\HasAvatar;
 use Filament\Models\Contracts\HasName;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Builder;
@@ -51,7 +52,7 @@ use Spatie\Permission\Traits\HasRoles;
  *
  * @mixin \Eloquent
  */
-class FilamentUser extends Authenticatable implements AccessControlUser, FilamentUserInterface, HasName
+class FilamentUser extends Authenticatable implements AccessControlUser, FilamentUserInterface, HasName,HasAvatar
 {
     use HasFactory;
     use HasRoles;
@@ -93,7 +94,7 @@ class FilamentUser extends Authenticatable implements AccessControlUser, Filamen
      */
     public function isSuperAdmin(): bool
     {
-        return $this->hasRole(RoleName::SUPER_ADMIN);
+        return $this->hasRole('Admin');
     }
 
     public function isTeacher(): bool
@@ -136,7 +137,7 @@ class FilamentUser extends Authenticatable implements AccessControlUser, Filamen
 
     public function getFilamentName(): string
     {
-        return $this->full_name;
+        return $this->first_name." : ".$this->last_name;
     }
 
     /**
@@ -197,5 +198,14 @@ class FilamentUser extends Authenticatable implements AccessControlUser, Filamen
     public function sendTwoFactorCodeNotification(): void
     {
         $this->notify(new TwoFactorCode);
+    }
+
+    public function getFilamentAvatarUrl(): ?string
+    {
+        $logo = url("storage/admin.jpg");
+        if($this->isTeacher()){
+            $logo = url("storage/{$this->teacher->photo}");
+        }
+        return $logo;
     }
 }

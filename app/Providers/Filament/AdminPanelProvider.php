@@ -2,6 +2,8 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\Dashboard;
+use App\Filament\Pages\EditProfile;
 use App\Filament\Widgets\AppWidget;
 use App\Models\Profile;
 use Chiiya\FilamentAccessControl\FilamentAccessControlPlugin;
@@ -28,15 +30,21 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->default()
             ->id('admin')
-            ->path('admin')
+            ->path('/')
             ->login()
+            ->passwordReset(Pages\Auth\PasswordReset\RequestPasswordReset::class)
+            ->profile(EditProfile::class)
             ->colors([
                 'primary' => Color::Amber,
             ])
+            ->favicon(function (){
+                $profile = Profile::findOrNew(1);
+                return  (url("storage/{$profile->logo}"));
+            })
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
-                Pages\Dashboard::class,
+                Dashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([

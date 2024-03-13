@@ -184,11 +184,11 @@ class FilamentUserResource extends Resource
     {
         return [
             TextInput::make('first_name')
-                ->label(__('filament-access-control::default.fields.first_name'))
+                ->label('Panggilan')
                 ->validationAttribute(__('filament-access-control::default.fields.first_name'))
                 ->required(),
             TextInput::make('last_name')
-                ->label(__('filament-access-control::default.fields.last_name'))
+                ->label('Nama Lengkap')
                 ->validationAttribute(__('filament-access-control::default.fields.last_name'))
                 ->required(),
             TextInput::make('email')
@@ -219,8 +219,12 @@ class FilamentUserResource extends Resource
                 ->live()
                 ->required()
                 ->visible(function (Get $get){
-                    $role = Role::find($get('role'));
-                    return $role->name == 'Guru';
+                    $result = false;
+                    if($get('role') != null){
+                        $role = Role::find($get('role'));
+                        $result = $role->name == 'Guru' | $role->name == 'Wali Murid' ;
+                    }
+                    return $result;
                 })
         ];
     }

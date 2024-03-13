@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Profile;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Env;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
 
@@ -14,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+
     }
 
     /**
@@ -25,13 +26,6 @@ class AppServiceProvider extends ServiceProvider
         Carbon::setLocale('id');
 
         $profile = Profile::findOrNew(1);
-
-        if (!$profile->exists()) {
-            $profile = Profile::factory()->create([
-                'id' => 1,
-                'logo' => 'sample.jpg'
-            ]);
-        }
 
         Config::set('mail.mailers.smtp.host', $profile->host);
         Config::set('mail.mailers.smtp.port', $profile->port);

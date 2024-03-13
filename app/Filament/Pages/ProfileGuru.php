@@ -10,6 +10,7 @@ use App\Models\Teacher;
 use App\Models\User;
 use App\Models\FilamentUser;
 use Chiiya\FilamentAccessControl\Traits\AuthorizesPageAccess;
+use Closure;
 use Filament\Actions\Action;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
@@ -27,6 +28,8 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
+use Filament\Forms\Set;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 use Filament\Support\Colors\Color;
@@ -44,6 +47,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileGuru extends Page implements HasForms
 {
@@ -55,7 +59,7 @@ class ProfileGuru extends Page implements HasForms
     protected static string $view = 'filament.pages.profile-sekolah';
 
     public static string $permission = '';
-    protected static ?string $navigationLabel = "Profil";
+    protected static ?string $navigationLabel = "ProfileSekolah";
 
     public ?array $data = [];
 
@@ -65,7 +69,11 @@ class ProfileGuru extends Page implements HasForms
         if (Auth::check()) {
             $user = Auth::user();
             $teacher = $user->teacher;
-            $this->form->fill($teacher->toArray());
+            $data = $teacher->toArray();
+            $data['user'] = $user->toArray();
+
+            $this->form->fill($data);
+
         } else {
 
         }
@@ -87,82 +95,107 @@ class ProfileGuru extends Page implements HasForms
     {
         return $form
             ->schema([
-                Fieldset::make("Profile")->schema([
+                Fieldset::make("ProfileSekolah")->schema([
                     TextInput::make('nuptk')
                         ->label('NUPTK')
-                        ->type('number')->disabled()->numeric(),
+                        ->type('number')->required()->numeric(),
                     TextInput::make('nip')
                         ->label('NIP')
-                        ->type('number')->disabled()->numeric(),
+                        ->type('number')->required()->numeric(),
                     TextInput::make('name')
                         ->label('Nama')
-                        ->disabled(),
+                        ->required(),
                     TextInput::make('birth_place')
                         ->label('Tempat Lahir')
-                        ->disabled(),
+                        ->required(),
                     DatePicker::make('birth_date')
                         ->label('Tanggal lahir')
                         ->rule('date')
-                        ->disabled(),
+                        ->required(),
                     TextInput::make('position')
                         ->label('Posisi')
-                        ->disabled(),
+                        ->required(),
                     Select::make('gender')
                         ->label('Gender')
                         ->options([
                             'pria' => "Pria",
                             'perempuan' => "Wanita"
                         ])
-                        ->disabled(),
+                        ->required(),
                     Select::make('level')
                         ->label('Level')
                         ->options([
                             'pns' => "PNS",
                             'swasta' => "swasta"
                         ])
-                        ->disabled(),
+                        ->required(),
                     Select::make('religion')
                         ->label('Agama')
                         ->options([
                             'islam' => 'Islam',
                             'kristen' => 'Kristen',
                         ])
-                        ->disabled(),
+                        ->required(),
                     TextInput::make('education')
                         ->label('Pendidikan Terakhir')
-                        ->disabled(),
+                        ->required(),
                     Textarea::make('address')
                         ->label('Alamat')
-                        ->rows(7)->disabled(),
+                        ->rows(7)->required(),
                     TextInput::make('phone')
                         ->label('Handphone')
-                        ->disabled(),
+                        ->required(),
                     TextInput::make('email')
                         ->label('Email')
                         ->helperText("pasrtikan email sesui dengan user yang ada di akun")
-                        ->disabled(),
+                        ->required(),
                     Select::make('status')
                         ->label('Status')
                         ->options([
                             'menikah' => "Menikah",
                             'sendiri' => "Sendiri"
                         ])
-                        ->disabled(),
+                        ->required(),
                     DatePicker::make('work_start_date')
                         ->label('Tanggal Aktif')
                         ->rule('date')
                         ->nullable()
-                        ->disabled(),
+                        ->required(),
                 ])->columns(1)
                     ->columnSpan(7),
-                Fieldset::make('Photo')->schema([
-                    FileUpload::make('photo')
-                        ->label('')
-                        ->disabled()
-                        ->image()
+                Group::make()->schema([
+                    Fieldset::make('Photo')->schema([
+                        FileUpload::make('photo')
+                            ->label('')
+                            ->required()
+                            ->image()
+                    ])->columns(1)
                 ])->columns(1)->columnSpan(5)
             ])
             ->columns(12)
             ->statePath('data');
+    }
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            Action::make('save')->action('update')
+        ];
+    }
+
+    public function update()
+    {
+        $data = $this->form->getState();
+
+        $user = Auth::user();
+
+        $teacher = $user->teacher;
+
+        $teacher->fill($data)->save();
+
+        Notification::make()
+            ->title('Saved successfully')
+            ->success()
+            ->send();
     }
 }
