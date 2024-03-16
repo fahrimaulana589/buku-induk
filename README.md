@@ -29,5 +29,5 @@ php artisan serve
 username : admin@admin.com
 password : admin
 
-### User Aplikasi
+### Demo Aplikasi
 demo : https://bukuinduk.pooja.my.id/
